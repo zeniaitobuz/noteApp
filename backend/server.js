@@ -77,7 +77,6 @@ app.put("/updatenote", async (request, response) => {
         },
       }
     );
-    console.log(updatedData);
     response.send({
       data: notes,
       message: "successfully updated",

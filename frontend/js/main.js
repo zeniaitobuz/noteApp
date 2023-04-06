@@ -63,7 +63,6 @@ async function readNotes() {
 readNotes();
 
 function deleteItem(noteId) {
-  console.log("hi");
   const response = fetch("http://localhost:3000/deletenote", {
     mode: "cors",
     method: "DELETE",

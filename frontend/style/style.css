@@ -1,16 +1,12 @@
 body {
-  background: rgb(235, 214, 249);
   background: radial-gradient(
     circle,
-    rgb(217, 174, 246) 0%,
-    rgb(250, 173, 173) 50%,
-    rgba(255, 227, 184, 0.951) 100%
+    rgba(21, 14, 74, 1) 0%,
+    rgba(69, 18, 107, 1) 50%,
+    rgba(79, 16, 83, 0.9514399509803921) 100%
   ) !important;
 
   font-family: "Cormorant Garamond", serif !important;
-}
-.font {
-  font-family: 'IBM Plex Serif', serif;
 }
 
 .buttons {
@@ -61,20 +57,22 @@ body {
   align-items: center;
   position: relative;
   border-radius: 10px;
-  padding: 1%;
+  padding: 2% 5% 2% 5%;
   gap: 0.3rem;
-  background: linear-gradient(
-    90deg,
-    rgb(246, 152, 135) 0%,
-    rgb(254, 223, 138) 57%,
-    rgb(247, 255, 138) 100%
+  background: rgb(160, 150, 233);
+  background: radial-gradient(
+    circle,
+    rgb(188, 179, 255) 0%,
+    rgb(225, 183, 255) 50%,
+    rgba(250, 183, 255, 0.951) 100%
   );
-  height: 15rem;
+
+  height: 10rem;
   width: 20rem;
   box-shadow: 10px 10px 20px -6px rgba(0, 0, 0, 0.75);
 }
 
-.list-item{
+.list-item {
   height: 5rem;
   overflow-y: scroll;
 }
