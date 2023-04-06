@@ -1,37 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notes App</title>
-  <link rel="stylesheet" href="./style/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link rel="stylesheet" href="./style/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=IBM+Plex+Serif:wght@500&family=Playfair+Display:ital@1&family=Work+Sans:ital,wght@1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Work+Sans:ital,wght@1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Playfair+Display:ital@1&family=Work+Sans:ital,wght@1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=Work+Sans:ital,wght@1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+  </head>
 
-<body>
+  <body class="position-relative">
+    <i id="plusBtn" class="fa-solid fa-circle-plus" style="color: #a40a47"></i>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <h1 class="p-4 font">Notes App</h1>
+      <div id="createNote" class="flex-column notes">
+        <form
+          class="d-flex flex-column w-100 justify-content-center align-items-center"
+        >
+          <input
+            id="noteName"
+            class="p-2 w-75 m-2"
+            type="text"
+            placeholder="Name your note"
+          />
+          <textarea
+            class="p-2 w-75 m-2"
+            name="noteContent"
+            id="noteContent"
+            cols="40"
+            rows="10"
+            placeholder="What note do you want to add"
+          ></textarea>
+          <button id="addBtn" class="p-1 m-2 w-50 buttons" type="submit">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="note-lists">
+      <div class="note-items" id="note"></div>
+      <div id="updateData"></div>
+    </div>
 
-<div class="d-flex flex-column justify-content-center align-items-center">
-  <h1 class="p-4">Notes App</h1>
-  <div class="d-flex flex-column notes justify-content-center align-items-center">
-  <form onsubmit="submitNotes(event)" class="d-flex flex-column "></form>
-  <input id="noteName" class="p-2 w-75 m-2" type="text" placeholder="Name your note">
-  <input id="noteContent" class="p-2 w-75 m-2" type="text" placeholder="What note do you want to add">
-    <button id="add-btn" class="p-1 m-2 w-50 btn-color" type="submit">Add</button>
- 
-</form>
-</div>
-</div>
-<div class="note-lists">
-<div class="note-items" id="note"></div>
-<div id="updateData"></div>
-</div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
-  <script src="./js/main.js"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
