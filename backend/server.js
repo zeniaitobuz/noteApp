@@ -56,9 +56,9 @@ app.post("/addnote", async (request, response) => {
     });
   } catch (error) {
     response.send({
-      data:null,
-      message:error,
-      status:500,
+      data: null,
+      message: error,
+      status: 500,
     });
   }
 });
@@ -85,9 +85,9 @@ app.put("/updatenote", async (request, response) => {
     });
   } catch (error) {
     response.send({
-      data:null,
-      message:error,
-      status:500,
+      data: null,
+      message: error,
+      status: 500,
     });
   }
 });
@@ -118,9 +118,9 @@ app.get("/notes", async (request, response) => {
     });
   } catch (error) {
     response.send({
-      data:null,
-      message:error,
-      status:500,
+      data: null,
+      message: error,
+      status: 500,
     });
   }
 });
