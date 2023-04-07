@@ -5,8 +5,8 @@ body {
     rgba(69, 18, 107, 1) 50%,
     rgba(79, 16, 83, 0.9514399509803921) 100%
   ) !important;
-
   font-family: "Cormorant Garamond", serif !important;
+  font-size: 1.3rem !important;
 }
 
 .buttons {
@@ -22,13 +22,43 @@ body {
   transition: all 0.2s ease-out;
   background-color: #570213;
 }
+
+#createNote{
+  padding: 0.6rem;
+  background: rgb(160, 150, 233);
+  background: radial-gradient(
+    circle,
+    rgb(166, 213, 234) 0%,
+    rgb(165, 177, 234) 50%,
+    rgba(224, 172, 235, 0.951) 100%
+  );
+}
+
+#alerts{
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 20rem;
+  /* display: none;  */
+} 
+
+
 #plusBtn {
   position: absolute;
   margin-top: 3%;
-  right: 10%;
-  font-size: 3rem;
+  right: 5%;
+  font-size: 3.5rem;
+  color: #ffa1c6;
+  transition: 0.5s;
 }
-
+#plusBtn:before {
+  transition: 1s;
+}
+#plusBtn:hover {
+  color: rgb(192, 103, 197);
+  transform: rotateY(180deg);
+  cursor: pointer;
+}
 .notes {
   width: 25rem;
 }
@@ -36,14 +66,21 @@ body {
   height: 5rem;
 }
 .note-lists {
-  padding: 5%;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  max-height: 100vh;
+  overflow: auto;
 }
+
 .note-items {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  padding: 1rem;
+  z-index: 1;
 }
 .notes {
   display: none;
@@ -57,7 +94,7 @@ body {
   align-items: center;
   position: relative;
   border-radius: 10px;
-  padding: 2% 5% 2% 5%;
+  padding: 2% 3%;
   gap: 0.3rem;
   background: rgb(160, 150, 233);
   background: radial-gradient(
@@ -66,29 +103,53 @@ body {
     rgb(225, 183, 255) 50%,
     rgba(250, 183, 255, 0.951) 100%
   );
-
   height: 10rem;
   width: 20rem;
   box-shadow: 10px 10px 20px -6px rgba(0, 0, 0, 0.75);
+}
+.item:hover {
+  background: rgb(160, 150, 233);
+  background: radial-gradient(
+    circle,
+    rgb(128, 190, 219) 0%,
+    rgb(117, 136, 233) 50%,
+    rgba(204, 122, 221, 0.951) 100%
+  );
 }
 
 .list-item {
   height: 5rem;
   overflow-y: scroll;
 }
-
 .update-data {
+  position: absolute;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  width: 25rem;
+  background: rgb(160, 150, 233);
+  background: radial-gradient(
+    circle,
+    rgb(166, 213, 234) 0%,
+    rgb(165, 177, 234) 50%,
+    rgba(224, 172, 235, 0.951) 100%
+  );
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (min-width: 820px) {
+  .item {
+    height: 15rem;
+  }
   .note-items {
     flex-direction: row;
     flex-wrap: wrap;
+  }
+  #plusBtn {
+    font-size: 4rem;
+    margin-top: 2%;
+    right: 10%;
   }
 }

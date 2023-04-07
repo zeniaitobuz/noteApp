@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
+import noteRouter from './noteRouter.js';
+
 
 const notesSchema = new mongoose.Schema({
   name: {
@@ -44,85 +46,8 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-//ading the note
-app.post("/addnote", async (request, response) => {
-  const notes = new notesModel(request.body);
-  try {
-    await notes.save();
-    response.send({
-      data: notes,
-      message: "successfully added",
-      status: 200,
-    });
-  } catch (error) {
-    response.send({
-      data: null,
-      message: error,
-      status: 500,
-    });
-  }
-});
 
-//updating the notes
-app.put("/updatenote", async (request, response) => {
-  const notes = new notesModel(request.body);
-  try {
-    const updatedData = await notesModel.findOneAndUpdate(
-      { name: request.body.name },
-      { name: request.body.updatedname, content: request.body.updatedcontent },
-      {
-        $set: {
-          name: request.body.updatedname,
-          content: request.body.updatedcontent,
-        },
-      }
-    );
-    response.send({
-      data: notes,
-      message: "successfully updated",
-      status: 200,
-    });
-  } catch (error) {
-    response.send({
-      data: null,
-      message: error,
-      status: 500,
-    });
-  }
-});
-
-//deleting the notes
-app.delete("/deletenote", async (request, response) => {
-  const notes = new notesModel(request.body);
-  try {
-    await notesModel.findOneAndDelete({ _id: request.body._id });
-    response.send({
-      data: notes,
-      message: "successfully deleted",
-      status: 200,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-//reading the notes
-app.get("/notes", async (request, response) => {
-  const notess = await notesModel.find({});
-  try {
-    response.send({
-      data: notess,
-      message: "successfully read",
-      status: 200,
-    });
-  } catch (error) {
-    response.send({
-      data: null,
-      message: error,
-      status: 500,
-    });
-  }
-});
+app.use(noteRouter);
 
 app.listen(3000, () => {
   console.log("Server is running at port 3000");

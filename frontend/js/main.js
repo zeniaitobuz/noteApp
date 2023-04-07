@@ -3,7 +3,8 @@ const noteContent = document.getElementById("noteContent");
 let note = document.getElementById("note");
 let updateData = document.getElementById("updateData");
 let createNote = document.getElementById("createNote");
-let result = null;
+let alertDiv = document.getElementById("alerts");
+
 
 document.querySelector("#plusBtn").addEventListener("click", () => {
   createNote.style.display = "flex ";
@@ -11,6 +12,27 @@ document.querySelector("#plusBtn").addEventListener("click", () => {
 document.querySelector("#addBtn").addEventListener("click", () => {
   submitNotes();
 });
+
+
+// function fetchApi (url, data, method){
+//   fetch(url, {
+//     mode: "cors",
+//     method,
+//     headers: {
+//       "Content-type": "application/json; charset=UTF-8",
+//     },
+//     body: JSON.stringify(data),
+//   })
+//     .then(() => {
+//       noteName.value = null;
+//       noteContent.value = null;
+//       readNotes();
+//       alert("Note added");
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
 
 function submitNotes(event) {
   fetch("http://localhost:3000/addnote", {
@@ -29,6 +51,7 @@ function submitNotes(event) {
       noteName.value = null;
       noteContent.value = null;
       readNotes();
+      alert("Note added");
     })
     .catch((error) => {
       console.log(error);
@@ -46,8 +69,7 @@ async function readNotes() {
 
   note.innerHTML = "";
   for (let i = 0; i < response.data.length; i++) {
-    let notesTaken = "";
-    notesTaken = `
+   let notesTaken = `
         <div class = "item">
             <h2 class = "list-name" id = "list-name">${response.data[i].name}</h2>
             <p class = "list-item" id = "list-item">${response.data[i].content}</p>
@@ -60,7 +82,7 @@ async function readNotes() {
     note.innerHTML += notesTaken;
   }
 }
-readNotes();
+// readNotes();
 
 function deleteItem(noteId) {
   const response = fetch("http://localhost:3000/deletenote", {
@@ -75,6 +97,7 @@ function deleteItem(noteId) {
   })
     .then(() => {
       readNotes();
+      alert("Note deleted");
     })
     .catch((error) => {
       console.log(error);
@@ -82,9 +105,10 @@ function deleteItem(noteId) {
 }
 
 function updateItem(noteName) {
-  let update = "";
-  update = `
-  <div id="updateDiv" class=" flex-column w-100 p-4 justify-content-center align-items-center update-data">
+
+  let update = `
+  <div id="updateDiv" class=" p-4 update-data">
+  <h2>Update your note</h2>
     <input
       id="newName"
       class="p-2 w-75 m-2 new-name"
@@ -100,10 +124,16 @@ function updateItem(noteName) {
         rows="5"
         placeholder="update your content"
     ></textarea>
+    <div class = "d-flex flex-row">
+    <button id = "cancel" class = "buttons p-1 m-2 w-50" >Close</button>
     <button class = "p-1 m-2 w-50 buttons update" onClick="updateContent('${noteName}')">Update</button>
+    </div>
 </div>
         `;
   updateData.innerHTML += update;
+  document.querySelector("#cancel").addEventListener("click", () => {
+    updateDiv.style.display = "none";
+  });
 }
 function updateContent(noteName) {
   let newNoteName = document.getElementById("newName").value;
@@ -124,6 +154,13 @@ function updateContent(noteName) {
       let updateDiv = document.getElementById("updateDiv");
       updateDiv.style.display = "none";
       readNotes();
+      alertDiv = "";
+      let alert = "";
+      alert = `<div class="alert alert-primary position-relative" role="alert">
+      Note updated
+      </div>`;
+      alertDiv.innerHTML += alert;
+      // alertDiv.style.display = "flex";
     })
     .catch((error) => {
       console.log(error);
