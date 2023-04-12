@@ -1,7 +1,6 @@
 import config from "../config.js";
 
 let deleteId = "";
-
 const colorArr = [
   "#ffadad",
   "#ffd6a5",
@@ -42,6 +41,7 @@ async function fetchApi(url, data, method) {
       .catch((err) => {
         console.log(err);
       });
+
     return response;
   } else {
     const response = await fetch(url)
@@ -63,19 +63,22 @@ async function submitNotes(event) {
   if (!config.noteName.value.length || !config.noteContent.value.length) {
     alert("Mandatory fields missing");
   }
+
   document.getElementById("alertAdd").style.display = "flex";
-  setTimeout(() => {
-    readNotes();
-  }, 10);
   setTimeout(() => {
     document.getElementById("alertAdd").style.display = "none";
   }, 2000);
+
   const url = `${config.localhostUrl}addnote`;
   const data = {
     name: `${config.noteName.value}`,
     content: `${config.noteContent.value}`,
   };
+
   await fetchApi(url, data, "POST");
+
+  readNotes();
+
   config.createNote.style.display = "none";
   config.addNoteSec.classList.toggle("d-none");
 
@@ -87,10 +90,12 @@ async function readNotes() {
   const url = `${config.localhostUrl}notes`;
   let response = await fetchApi(url, "", "GET");
   config.note.innerHTML = "";
+
   for (let i = 0; i < response.data.length; i++) {
     if (colorPointer === colorArr.length) {
       colorPointer = 0;
     }
+
     let notesTaken = `
         <div class = "item flex-prop" id="${
           response.data[i]._id
@@ -113,6 +118,7 @@ async function readNotes() {
             </div>
         </div>
         `;
+
     config.note.innerHTML += notesTaken;
   }
 }
@@ -121,6 +127,7 @@ function confirmDeleteTask(id) {
   deleteId = id;
   document.getElementById("deletePopup").style.display = "block";
   document.getElementById("confirmdelete").style.display = "flex";
+
   setTimeout(() => {
     document.getElementById("confirmdelete").style.display = "none";
     document.getElementById("deletePopup").style.display = "none";
@@ -128,11 +135,13 @@ function confirmDeleteTask(id) {
 }
 function deleteNote() {
   deleteItem(deleteId);
+
   document.getElementById("confirmdelete").style.display = "none";
   document.getElementById("deletePopup").style.display = "none";
 }
 function dontdeleteNote() {
   deleteId = "";
+
   document.getElementById("confirmdelete").style.display = "none";
   document.getElementById("deletePopup").style.display = "none";
 }
@@ -150,9 +159,13 @@ async function deleteItem(noteId) {
   const data = {
     _id: `${noteId}`,
   };
+
   await fetchApi(url, data, "DELETE");
+
   readNotes();
+
   document.getElementById("alertDel").style.display = "flex";
+
   setTimeout(() => {
     document.getElementById("alertDel").style.display = "none";
   }, 4000);
@@ -183,10 +196,13 @@ function updateItem(notesId, notesName, notesContent) {
       </div>
     </div>
         `;
+
   config.updateData.innerHTML += update;
+
   const updateContainer = document.getElementById("updateContainer");
 
   updateContainer.classList.toggle("d-none");
+
   document.querySelector("#cancel").addEventListener("click", () => {
     updateDiv.style.display = "none";
     updateContainer.classList.toggle("d-none");
@@ -194,22 +210,27 @@ function updateItem(notesId, notesName, notesContent) {
 }
 async function updateContent(notesId) {
   document.getElementById("alert").style.display = "flex";
+
   setTimeout(() => {
     document.getElementById("alert").style.display = "none";
     location.reload();
   }, 1000);
+
   updateContainer.classList.toggle("d-none");
   let newNoteName = document.getElementById("newName").value;
   let newNoteContent = document.getElementById("newContent").value;
   const url = `${config.localhostUrl}updatenote`;
+
   const data = {
     _id: `${notesId}`,
     name: `${newNoteName}`,
     content: `${newNoteContent}`,
   };
+
   await fetchApi(url, data, "PUT");
-  // readNotes();
+
   const updateDiv = document.getElementById("updateDiv");
+
   updateDiv.style.display = "none";
 }
 
@@ -221,7 +242,6 @@ window.deleteNote = deleteNote;
 window.dontdeleteNote = dontdeleteNote;
 
 //IIFE
-
 (async () => {
   readNotes();
 })();

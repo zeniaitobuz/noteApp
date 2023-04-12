@@ -14,10 +14,12 @@ app.use(cors());
 
 app.use(noteRouter);
 
+//when wrong url hits
 app.use((req, res, next) => {
   next(new Error("Page not found"));
 });
 
+//when error in catch block
 app.use((error, req, res, next) => {
   if (error) {
     res.status(500).send({
