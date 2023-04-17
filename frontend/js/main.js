@@ -7,9 +7,8 @@ const colorArr = [
   "#fdffb6",
   "#caffbf",
   "#9bf6ff",
-  "#a0c4ff",
   "#bdb2ff",
-  "#ffc6ff",
+  "#a0c4ff",
   "#ffc6ff",
   "#fde4cf",
   "#98f5e1",
@@ -172,43 +171,26 @@ async function deleteItem(noteId) {
 }
 
 function updateItem(notesId, notesName, notesContent) {
-  let update = `
-    <div id="updateDiv" class="flex-prop p-4 update-data">
-      <h2 class="text-light">Update your note</h2>
-      <input
-        id="newName"
-        class="p-2 w-75 m-2 new-name"
-        value = '${notesName}'
-        type="text"
+  config.addNoteSec.classList.toggle("d-none");
+  config.createNote.style.display = "flex";
+  config.noteName.value = notesName;
+  config.noteContent.value = notesContent;
 
-      />
-      <textarea
-        class="p-2 w-75 m-2 new-content"
-        name="newContent"
-        class="new-content"
-        id="newContent"
-          cols="40"
-          rows="5"
-      >${notesContent}</textarea>
-      <div class = "d-flex flex-row">
-      <button id = "cancel" class = "buttons p-1 m-2 w-50" >Close</button>
-      <button class = "p-1 m-2 w-50 buttons update" onClick="updateContent('${notesId}')">Update</button>
-      </div>
-    </div>
-        `;
+  document.getElementById("addBtn").textContent = "Update";
 
-  config.updateData.innerHTML += update;
-
-  const updateContainer = document.getElementById("updateContainer");
-
-  updateContainer.classList.toggle("d-none");
-
-  document.querySelector("#cancel").addEventListener("click", () => {
-    updateDiv.style.display = "none";
-    updateContainer.classList.toggle("d-none");
+  document.querySelector("#addBtn").addEventListener("click", () => {
+    const newName = document.getElementById("noteName").value;
+    const newContent = document.getElementById("noteContent").value;
+    const details = {
+      newName: newName,
+      newContent: newContent,
+    };
+    updateContent(notesId, details);
   });
+
+  document.getElementById("addBtn").value = "Update";
 }
-async function updateContent(notesId) {
+async function updateContent(notesId, details) {
   document.getElementById("alert").style.display = "flex";
 
   setTimeout(() => {
@@ -216,22 +198,16 @@ async function updateContent(notesId) {
     location.reload();
   }, 1000);
 
-  updateContainer.classList.toggle("d-none");
-  let newNoteName = document.getElementById("newName").value;
-  let newNoteContent = document.getElementById("newContent").value;
   const url = `${config.localhostUrl}updatenote`;
 
   const data = {
     _id: `${notesId}`,
-    name: `${newNoteName}`,
-    content: `${newNoteContent}`,
+    name: `${details.newName}`,
+    content: `${details.newContent}`,
   };
 
   await fetchApi(url, data, "PUT");
-
-  const updateDiv = document.getElementById("updateDiv");
-
-  updateDiv.style.display = "none";
+  config.addNoteSec.classList.toggle("d-none");
 }
 
 window.closeAdd = closeAdd;
@@ -240,6 +216,8 @@ window.confirmDeleteTask = confirmDeleteTask;
 window.updateContent = updateContent;
 window.deleteNote = deleteNote;
 window.dontdeleteNote = dontdeleteNote;
+window.noteName = noteName;
+window.noteContent = noteContent;
 
 //IIFE
 (async () => {
