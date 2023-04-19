@@ -19,6 +19,8 @@ let colorPointer = 0;
 document.querySelector("#plusBtn").addEventListener("click", () => {
   config.addNoteSec.classList.toggle("d-none");
   config.createNote.style.display = "flex";
+  config.noteName.value = "";
+  config.noteContent.value = "";
 });
 document.querySelector("#addBtn").addEventListener("click", () => {
   submitNotes();
@@ -64,6 +66,7 @@ async function submitNotes(event) {
   }
 
   document.getElementById("alertAdd").style.display = "flex";
+  document.getElementById("alertText").textContent = "Note Addeddd";
   setTimeout(() => {
     document.getElementById("alertAdd").style.display = "none";
   }, 2000);

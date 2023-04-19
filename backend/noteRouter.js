@@ -13,12 +13,14 @@ noteRouter.post("/addnote", async (request, response, next) => {
       next(new Error("Content field missing"));
     }
     const notes = new notesModel(request.body);
-    await notes.save();
-    response.send({
-      data: notes,
-      message: "successfully added",
-      success: true,
-    });
+    const res = await notes.save();
+    if (res?._id) {
+      response.send({
+        data: notes,
+        message: "successfully added",
+        success: true,
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -32,7 +34,7 @@ noteRouter.put("/updatenote", async (request, response, next) => {
       next(new Error("Id field missing"));
     }
     const notes = new notesModel(request.body);
-    await notesModel.findByIdAndUpdate(
+    const res = await notesModel.findByIdAndUpdate(
       { _id: _id },
       { name: name, content: content },
       {
@@ -42,11 +44,13 @@ noteRouter.put("/updatenote", async (request, response, next) => {
         },
       }
     );
-    response.send({
-      data: notes,
-      message: "successfully updated",
-      success: true,
-    });
+    if (res?._id) {
+      response.send({
+        data: notes,
+        message: "successfully updated",
+        success: true,
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -60,12 +64,14 @@ noteRouter.delete("/deletenote", async (request, response, next) => {
       next(new Error("Id field missing"));
     }
     const notes = new notesModel(request.body);
-    await notesModel.findOneAndDelete({ _id: _id });
-    response.send({
-      data: notes,
-      message: "successfully deleted",
-      success: true,
-    });
+    const res = await notesModel.findOneAndDelete({ _id: _id });
+    if (res?._id) {
+      response.send({
+        data: notes,
+        message: "successfully deleted",
+        success: true,
+      });
+    }
   } catch (error) {
     next(error);
   }
